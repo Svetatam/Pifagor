@@ -19,10 +19,12 @@ function generateQuestion() {
 function checkAnswer() {
   const userAnswer = parseInt(userAnswerInput.value);
   if (userAnswer === currentQuestion.answer) {
-    resultElement.textContent = "Правильно!!!";
+    resultElement.textContent = "Правильно!";
+    resultElement.style.color = "#4CAF50";
     score++;
   } else {
     resultElement.textContent = `Неправильно. Правильный ответ: ${currentQuestion.answer}`;
+    resultElement.style.color = "#d32f2f";
   }
   updateScore();
 }
