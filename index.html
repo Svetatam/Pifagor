@@ -21,6 +21,31 @@
             font-size: 36px;
             margin-bottom: 20px;
         }
+        #controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .numberButton {
+            background-color: #f1f1f1;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .numberButton:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
         #question {
             font-size: 28px;
             margin: 20px;
@@ -65,6 +90,19 @@
 </head>
 <body>
     <h1>Учим Таблицу Умножения</h1>
+    <div id="controls">
+        <button class="numberButton" data-number="random">?</button>
+        <button class="numberButton" data-number="1">1</button>
+        <button class="numberButton" data-number="2">2</button>
+        <button class="numberButton" data-number="3">3</button>
+        <button class="numberButton" data-number="4">4</button>
+        <button class="numberButton" data-number="5">5</button>
+        <button class="numberButton" data-number="6">6</button>
+        <button class="numberButton" data-number="7">7</button>
+        <button class="numberButton" data-number="8">8</button>
+        <button class="numberButton" data-number="9">9</button>
+        <button class="numberButton" data-number="10">10</button>
+    </div>
     <div id="question"></div>
     <input type="number" id="userAnswer" placeholder="Ваш ответ">
     <button id="submitAnswer">Проверить ответ</button>

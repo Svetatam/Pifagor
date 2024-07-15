@@ -3,13 +3,19 @@ const userAnswerInput = document.getElementById("userAnswer");
 const resultElement = document.getElementById("result");
 const submitButton = document.getElementById("submitAnswer");
 const nextButton = document.getElementById("nextQuestion");
+const numberButtons = document.querySelectorAll(".numberButton");
 
 let currentQuestion = {};
 let score = 0;
+let selectedNumber = "random";
 
 function generateQuestion() {
-  const num1 = Math.floor(Math.random() * 10) + 1;
+  let num1 =
+    selectedNumber === "random"
+      ? Math.floor(Math.random() * 10) + 1
+      : parseInt(selectedNumber);
   const num2 = Math.floor(Math.random() * 10) + 1;
+
   currentQuestion = { num1, num2, answer: num1 * num2 };
   questionElement.textContent = `Сколько будет ${num1} × ${num2}?`;
   userAnswerInput.value = "";
@@ -32,6 +38,13 @@ function checkAnswer() {
 function updateScore() {
   console.log(`Текущий счет: ${score}`);
 }
+
+numberButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    selectedNumber = button.getAttribute("data-number");
+    generateQuestion();
+  });
+});
 
 submitButton.addEventListener("click", checkAnswer);
 nextButton.addEventListener("click", generateQuestion);
