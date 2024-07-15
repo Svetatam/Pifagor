@@ -10,6 +10,7 @@ let currentQuestion = {};
 let score = 0;
 let selectedNumber = "random";
 let questionHistory = [];
+let attemptCount = 0;
 
 function generateQuestion() {
   let num1 =
@@ -22,31 +23,44 @@ function generateQuestion() {
   questionElement.textContent = `Сколько будет ${num1} × ${num2}?`;
   userAnswerInput.value = "";
   resultElement.textContent = "";
+  attemptCount = 0;
 }
 
 function checkAnswer() {
   const userAnswer = parseInt(userAnswerInput.value);
-  const isCorrect = userAnswer === currentQuestion.answer;
+  attemptCount++;
 
-  if (isCorrect) {
+  if (userAnswer === currentQuestion.answer) {
     resultElement.textContent = "Правильно!";
     resultElement.style.color = "#4CAF50";
     score++;
+    questionHistory.push({
+      question: `${currentQuestion.num1} × ${currentQuestion.num2}`,
+      userAnswer,
+      correctAnswer: currentQuestion.answer,
+      isCorrect: true,
+    });
+    updateHistory();
+    updateScore();
     setTimeout(generateQuestion, 1000); // Переход к следующему вопросу через 1 секунду
   } else {
-    resultElement.textContent = `Неправильно. Правильный ответ: ${currentQuestion.answer}`;
-    resultElement.style.color = "#d32f2f";
+    if (attemptCount < 3) {
+      resultElement.textContent = `Неправильно. Попробуйте еще раз.`;
+      resultElement.style.color = "#d32f2f";
+    } else {
+      resultElement.textContent = `Неправильно. Правильный ответ: ${currentQuestion.answer}`;
+      resultElement.style.color = "#d32f2f";
+      questionHistory.push({
+        question: `${currentQuestion.num1} × ${currentQuestion.num2}`,
+        userAnswer,
+        correctAnswer: currentQuestion.answer,
+        isCorrect: false,
+      });
+      updateHistory();
+      updateScore();
+      setTimeout(generateQuestion, 2000); // Переход к следующему вопросу через 2 секунды
+    }
   }
-
-  questionHistory.push({
-    question: `${currentQuestion.num1} × ${currentQuestion.num2}`,
-    userAnswer,
-    correctAnswer: currentQuestion.answer,
-    isCorrect,
-  });
-
-  updateHistory();
-  updateScore();
 }
 
 function updateScore() {
